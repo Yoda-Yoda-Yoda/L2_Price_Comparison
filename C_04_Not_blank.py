@@ -9,4 +9,5 @@ def not_blank(question):
 
         print("Sorry! this can't be blank. Please try again\n")
 
-input(not_blank("how Many? "))
+question_ = not_blank("how Many? ")
+print(question_)

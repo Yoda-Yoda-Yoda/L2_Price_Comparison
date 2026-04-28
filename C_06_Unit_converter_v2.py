@@ -28,7 +28,7 @@ def unit(question):
         print("you are in the l / kg loop")
         return number
     else:
-        print("Please enter a number / unit")
+        print("Please enter a unit")
 
 unit_test = unit("Number? ")
 print(unit_test)

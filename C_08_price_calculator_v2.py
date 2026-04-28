@@ -28,20 +28,20 @@ def not_blank(question):
 
         print("Sorry! this can't be blank. Please try again\n")
 
-def unit(question):
+def unit(weight, unit_1):
     """convert units"""
-    number = num_check(question)
-    unit_name = input("What unit? ").lower()
-    if unit_name == "ml" or unit_name == "g":
-        print("you are in the ml / g if")
-        number = number / 1000
-        return number
-    elif unit_name == "l" or unit_name == "kg":
-        print("you are in the l / kg loop")
-        return number
-    else:
-        print("Please enter a unit")
-
+    number = weight
+    unit_name = unit_1
+    while True:
+        if unit_name == "ml" or unit_name == "g":
+            print("you are in the ml / g loop")
+            number = number / 1000
+            return number
+        elif unit_name == "l" or unit_name == "kg":
+            print("you are in the l / kg loop")
+            return number
+        else:
+            print("Please enter a number / unit")
 
 def price_calculator(weight, unit_price):
     """Calculates the cost per kg/L from the unit cost"""
@@ -49,9 +49,11 @@ def price_calculator(weight, unit_price):
     return per_kg_l
 
 while True:
-    unit_test = unit("Number? ")
+    weight1 = num_check("What is the weight? ")
+    unit_question = not_blank("what is the unit? ")
+    unit_cost = num_check("what is the cost? ")
+    unit_test = unit(weight1, unit_question)
     print(unit_test)
-    unit_cost = num_check("what is the cost")
-    price_per_weight = price_calculator(unit_test, unit_cost)
-    # testing
-    print(price_per_weight, "kg/l")
+    price = price_calculator(weight1, unit_cost)
+
+    print(price, "kg/l")

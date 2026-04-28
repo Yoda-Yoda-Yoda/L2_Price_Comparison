@@ -2,7 +2,7 @@ def num_check(question):
     """checks that the input the user entered is a number more than 0"""
     error = "Please enter numbers (Not Letters!)"
     while True:
-        response = input(question).lower()
+        response = input(question)
 
         if response == "xxx":
             return response

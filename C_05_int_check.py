@@ -14,10 +14,13 @@ def int_check(question):
         try:
             # Change the response to an integer and check that it's more than zero
             response = int(response)
-
-            return response
+            if response < 0:
+                print(error)
+            else:
+                return response
 
         except ValueError:
             print(error)
 
-int_check("how many? ")
+test = int_check("how many? ")
+print(test)

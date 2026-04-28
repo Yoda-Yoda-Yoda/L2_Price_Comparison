@@ -4,4 +4,4 @@ def make_statement(statement, decoration):
 
     print(f"{decoration * 3} {statement} {decoration * 3}")
 
-make_statement(input("Question: "), "🤣")
+make_statement(input("What is the item name?: "), "ℹ️")

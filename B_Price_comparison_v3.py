@@ -1,7 +1,7 @@
 from datetime import date
 # functions goes here
 def make_statement(statement, decoration):
-    """Emphasises headings by adding decoration
+    """Emphasizes headings by adding decoration
     at the start and end"""
 
     print(f"{decoration * 3} {statement} {decoration * 3}")
@@ -57,24 +57,34 @@ def num_check(question):
         except ValueError:
             print("Please enter numbers (Not Letters!)")
 
-def unit(weight, unit_1):
-    """convert units"""
-    number = weight
-    unit_name = unit_1
+def unit(question):
     while True:
-        if unit_name == "ml" or unit_name == "g":
+        response = not_blank(question)
+
+        if response == "ml" or response == "l" or response == "g" or response == "kg":
+            return response
+        else:
+            print("error")
+
+def unit_converter(item_weight, items_unit):
+    """convert units"""
+    while True:
+        if items_unit == "ml" or items_unit == "g":
             print("you are in the ml / g loop")
-            number = number / 1000
-            return number
-        elif unit_name == "l" or unit_name == "kg":
+            item_weight = item_weight / 1000
+        elif items_unit == "l" or items_unit == "kg":
             print("you are in the l / kg loop")
-            return number
         else:
             print("Please enter a number / unit")
+        # if items_unit == "g":
+        #     items_unit = "kg"
+        # elif items_unit == "ml":
+        #     items_unit = "l"
+        return item_weight #items_unit
 
-def price_calculator(weight, unit_price):
+def price_calculator(weight1, unit_price):
     """Calculates the cost per kg/L from the unit cost"""
-    per_kg_l = unit_price / weight
+    per_kg_l = unit_price / weight1
     return per_kg_l
 # main routine starts here
 
@@ -126,3 +136,14 @@ budget = num_check("What is your budget? ")
 
 while True:
     item_name = not_blank("What is the item name? ")
+    weight = num_check("What is the weight? ")
+    unit_question = unit("what is the unit? ")
+    item_cost = num_check("What is the item cost? ")
+    unit_test = unit_converter(weight, unit_question)
+    price_per_weight = price_calculator(unit_test, item_cost)
+
+    # add item name, item weight, item cost and unit
+    all_item_name.append(item_name)
+    all_item_weight.append(weight)
+    all_item_cost.append(unit_question)
+    all_item_unit.append(unit_question)

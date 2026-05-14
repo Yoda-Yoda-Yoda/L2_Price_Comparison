@@ -1,4 +1,5 @@
 def unit(question, valid_ans=("ml", "l", "g", "kg", "ea")):
+    """Takes the user answer and checks if it's a valid answer from the list!"""
     while True:
         response = input(question).lower()
 

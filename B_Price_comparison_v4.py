@@ -57,13 +57,16 @@ def num_check(question):
         except ValueError:
             print("Please enter numbers (Not Letters!)")
 
-def unit(question):
+def unit(question, valid_ans=("ml", "l", "g", "kg", "ea")):
+    """Takes the user answer and checks if it's a valid answer from the list!"""
     while True:
         response = input(question).lower()
 
-        if response == "ml" or response == "l" or response == "g" or response == "kg" or response == "ea":
-            return response
-        elif response == "":
+        for item in valid_ans:
+            if response == item:
+                return item
+
+        if response == "":
             return "ea"
         else:
             print("error")

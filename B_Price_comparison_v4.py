@@ -1,4 +1,7 @@
+import pandas
 from datetime import date
+from tabulate import tabulate
+
 # functions goes here
 def make_statement(statement, decoration):
     """Emphasizes headings by adding decoration
@@ -119,26 +122,9 @@ month = today.strftime("%m")
 year = today.strftime("%Y")
 
 budget = num_check("What is your budget? ")
-# while True:
-#     item_name = not_blank("What is the item name? ")
-#     weight_1 = num_check("what is the weight? ")
-#     unit_cost = num_check("what is the cost? ")
-#     unit_question = not_blank("What is the unit? ")
-#     if item_name == "xxx" or weight_1 == "xxx" or unit_cost == "xxx" or budget == "xxx":
-#         break
-#     unit = unit(weight_1, unit_question)
-#     print(unit, "kg")
-#     price_per_weight = price_calculator(weight_1, unit_cost)
-#     # testing
-#     print(f"${price_per_weight} / {unit_question}")
-#     # add item name, item weight, item cost and unit
-#     all_item_name.append(item_name)
-#     all_item_weight.append(weight_1)
-#     all_item_cost.append(unit_cost)
-#     all_item_unit.append(unit_question)
-# print("you have broken the loop😭😭😭")
 
 while True:
+    # gets the details of the items
     item_name = not_blank("What is the item name? ")
     weight = num_check("What is the weight? ")
     unit_question = unit("what is the unit? ")
@@ -150,5 +136,5 @@ while True:
     # add item name, item weight, item cost and unit
     all_item_name.append(item_name)
     all_item_weight.append(weight)
-    all_item_cost.append(item_name)
+    all_item_cost.append(item_cost)
     all_item_unit.append(unit_question)

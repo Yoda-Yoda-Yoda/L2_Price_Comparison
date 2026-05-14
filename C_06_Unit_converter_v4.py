@@ -51,8 +51,8 @@ def unit(question):
             print("entering the each world")
             if response != "each" or response != "ea":
                 question1 = yes_no("are you wanting $/each? ")
-            if question1 == "yes":
-                return "each"
+                if question1 == "yes":
+                    return "each"
 
 def unit_converter(item_weight, items_unit):
     """convert units"""

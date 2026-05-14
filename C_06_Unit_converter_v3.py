@@ -29,11 +29,14 @@ def not_blank(question):
         print("Sorry! this can't be blank. Please try again\n")
 
 def unit(question):
+    """checks that the unit is valid and will return """
     while True:
-        response = not_blank(question)
+        response = input(question).lower()
 
-        if response == "ml" or response == "l" or response == "g" or response == "kg":
+        if response == "ml" or response == "l" or response == "g" or response == "kg" or response == "ea":
             return response
+        elif response == "":
+            return "ea"
         else:
             print("error")
 
@@ -45,16 +48,16 @@ def unit_converter(item_weight, items_unit):
             item_weight = item_weight / 1000
         elif items_unit == "l" or items_unit == "kg":
             print("you are in the l / kg loop")
+        elif items_unit == "ea":
+            print("you are in the each world")
         else:
             print("Please enter a number / unit")
-        # if items_unit == "g":
-        #     items_unit = "kg"
-        # elif items_unit == "ml":
-        #     items_unit = "l"
-        return item_weight #items_unit
 
-weight = num_check("What is the weight? ")
-unit_question = unit("what is the unit? ")
+        return item_weight
 
-unit_test = unit_converter(weight, unit_question)
-print(unit_test)
+while True:
+    weight = num_check("What is the weight? ")
+    unit_question = unit("what is the unit? ")
+
+    unit_test = unit_converter(weight, unit_question)
+    print(unit_test)

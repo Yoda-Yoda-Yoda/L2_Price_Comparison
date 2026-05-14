@@ -58,7 +58,7 @@ def price_calculator(weight, unit_price):
     """Calculates the cost per kg/L from the unit cost"""
     per_kg_l = unit_price / weight
     return per_kg_l
-
+ 
 while True:
     weight1 = num_check("what is the weight? ")
     unit_question = unit("What is the unit? ")

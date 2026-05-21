@@ -1,4 +1,4 @@
-# import pandas
+import pandas
 from datetime import date
 # from tabulate import tabulate
 
@@ -120,6 +120,8 @@ budget = num_check("What is your budget? ")
 while True:
     # gets the details of the items
     item_name = not_blank("What is the item name? ")
+    if item_name == "xxx":
+        break
     weight = num_check("What is the weight? ")
     unit_question = unit("what is the unit? ")
     item_cost = num_check("What is the item cost? ")
@@ -132,3 +134,5 @@ while True:
     all_item_weight.append(weight)
     all_item_cost.append(item_cost)
     all_item_unit.append(unit_question)
+
+print("Good Bye have a bad day🤣🤣🤣")

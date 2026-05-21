@@ -42,23 +42,17 @@ def unit(question):
 
 def unit_converter(item_weight, items_unit):
     """convert units"""
-    while True:
-        if items_unit == "ml" or items_unit == "g":
-            print("you are in the ml / g loop")
-            item_weight = item_weight / 1000
-        elif items_unit == "l" or items_unit == "kg":
-            print("you are in the l / kg loop")
-        elif items_unit == "ea":
-            print("you are in the each world")
-        else:
-            print("Please enter a number / unit")
+    if items_unit == "ml" or items_unit == "g":
+        print("you are in the ml / g loop")
+        item_weight = item_weight / 1000
 
-        return item_weight
+    return item_weight
+
 def price_calculator(weight, unit_price):
     """Calculates the cost per kg/L from the unit cost"""
     per_kg_l = unit_price / weight
     return per_kg_l
- 
+
 while True:
     weight1 = num_check("what is the weight? ")
     unit_question = unit("What is the unit? ")
@@ -69,6 +63,6 @@ while True:
     # unit_cost = num_check("what is the cost? ")
     # unit_test = unit(weight1, unit_question)
     print(unit_test)
-    price = price_calculator(weight1, price)
+    price = price_calculator(unit_test, price)
 
     print(price, "kg/l/ea")

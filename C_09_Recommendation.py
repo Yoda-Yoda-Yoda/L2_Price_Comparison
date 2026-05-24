@@ -11,9 +11,8 @@ def num_check(question):
 
             if response > 0:
                 return response
-            elif response < 0:
-                error = "Please enter a positive number"
-                print(error)
+            else:
+                print("Sorry! This needs to be a positive number! Please try again\n")
         except ValueError:
             print("Please enter numbers (Not Letters!)")
 
@@ -59,6 +58,7 @@ def recommend(item_name_1, item_price_unit, budget_1):
     """Recommend the best value for money"""
     print(item_price_unit)
     lowest_price = min(item_price_unit)
+
     return lowest_price
 
 

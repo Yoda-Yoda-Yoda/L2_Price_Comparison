@@ -1,4 +1,4 @@
-import pandas
+# import pandas
 from datetime import date
 # from tabulate import tabulate
 
@@ -74,18 +74,13 @@ def unit(question, valid_ans=("ml", "l", "g", "kg", "ea")):
         else:
             print("error")
 
-def unit_converter(item_weight, items_unit):
-    """convert units"""
+def unit_price_calculator(item_weight, items_unit, unit_price):
+    """convert units and also works out the price per unit"""
     if items_unit == "ml" or items_unit == "g":
         print("you are in the ml / g loop")
         item_weight = item_weight / 1000
 
-    return item_weight
-
-
-def price_calculator(weight1, unit_price):
-    """Calculates the cost per kg/L from the unit cost"""
-    per_kg_l = unit_price / weight1
+    per_kg_l = unit_price / item_weight
     return per_kg_l
 # main routine starts here
 
@@ -125,10 +120,9 @@ while True:
     weight = num_check("What is the weight? ")
     unit_question = unit("what is the unit? ")
     item_cost = num_check("What is the item cost? ")
-    unit_test = unit_converter(weight, unit_question)
-    # changes mL / g to L / KG
-    price_per_weight = price_calculator(unit_test, item_cost)
-
+    # when called the function works changes g / mL to KG / L and then
+    # works out the price per kg / l / ea
+    unit_test = unit_price_calculator(weight, unit_question, item_cost)
     # add item name, item weight, item cost and unit
     all_item_name.append(item_name)
     all_item_weight.append(weight)

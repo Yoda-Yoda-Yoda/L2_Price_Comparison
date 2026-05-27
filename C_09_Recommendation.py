@@ -1,3 +1,5 @@
+import pandas as pd
+from tabulate import tabulate
 def num_check(question):
     """checks that the input the user entered is a number more than 0"""
     while True:
@@ -52,7 +54,7 @@ def unit_converter(item_weight, items_unit):
 def price_calculator(weight1, unit_price):
     """Calculates the cost per kg/L from the unit cost"""
     per_kg_l = unit_price / weight1
-    return per_kg_l
+    return f"{per_kg_l}:.2f"
 
 def recommend(item_name_1, item_price_unit, budget_1):
     """Recommend the best value for money"""
@@ -74,7 +76,7 @@ price_comparison_dict = {
     'Weight': all_item_weight,
     'Cost': all_item_cost,
     'Unit': all_item_unit,
-    'per_unit': all_item_per_kg
+    'Unit cost': all_item_per_kg
 }
 budget = num_check("What is your budget? ")
 while True:
@@ -88,12 +90,15 @@ while True:
     # changes mL / g to L / KG
     price_per_weight = price_calculator(unit_test, item_cost)
 
-
     all_item_name.append(item_name)
     all_item_weight.append(weight)
     all_item_cost.append(item_cost)
     all_item_unit.append(unit_question)
     all_item_per_kg.append(price_per_weight)
 
-recommendation = recommend(all_item_name, all_item_per_kg, budget)
-print(recommendation)
+recommendation_frame = pd.DataFrame(price_comparison_dict)
+recommendation_string = tabulate(recommendation_frame, headers='keys',
+                                 tablefmt='psql', showindex=False)
+print(recommendation_string)
+# recommendation = recommend(all_item_name, all_item_per_kg, budget)
+# print(recommendation)

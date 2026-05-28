@@ -64,11 +64,12 @@ def unit(question, valid_ans=("ml", "l", "g", "kg", "ea")):
     """Takes the user answer and checks if it's a valid answer from the list!"""
     while True:
         response = input(question).lower()
-
+        # checks if the item is in the list
         for item in valid_ans:
             if response == item:
                 return item
-
+        # if the user inputs <blank> then the program will
+        # presume the user wants each
         if response == "":
             return "ea"
         else:
@@ -89,12 +90,14 @@ all_item_name = []
 all_item_weight = []
 all_item_cost = []
 all_item_unit = []
-
+all_item_per_kg = []
+# this is the dictionary
 price_comparison_dict = {
     'Name': all_item_name,
     'Weight': all_item_weight,
     'Cost': all_item_cost,
-    'Unit': all_item_unit
+    'Unit': all_item_unit,
+    'per_unit': all_item_per_kg
 }
 # instructions
 want_instructions = yes_no("Do you want to see the instructions? ")
@@ -109,7 +112,7 @@ today = date.today()
 day = today.strftime("%d")
 month = today.strftime("%m")
 year = today.strftime("%Y")
-
+# gets the users budget
 budget = num_check("What is your budget? ")
 
 while True:
@@ -120,6 +123,7 @@ while True:
     weight = num_check("What is the weight? ")
     unit_question = unit("what is the unit? ")
     item_cost = num_check("What is the item cost? ")
+
     # when called the function works changes g / mL to KG / L and then
     # works out the price per kg / l / ea
     unit_test = unit_price_calculator(weight, unit_question, item_cost)
@@ -128,5 +132,5 @@ while True:
     all_item_weight.append(weight)
     all_item_cost.append(item_cost)
     all_item_unit.append(unit_question)
-
+    all_item_per_kg.append(unit_test)
 print("Good Bye have a bad day🤣🤣🤣")

@@ -92,4 +92,6 @@ recommendation_string = tabulate(recommendation_frame, headers='keys',
 print(recommendation_string)
 recommendation_0 = recommendation_frame.sort_values(by="Unit cost")
 print(recommendation_0)
+first_row = recommendation_0.iloc[[0]]
+print(first_row)
 recommendation_1 = recommendation(recommendation_0, budget)

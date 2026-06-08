@@ -50,11 +50,12 @@ def unit_price_calculator(item_weight, items_unit, unit_price):
         item_weight = item_weight / 1000
 
     per_kg_l = unit_price / item_weight
-    return per_kg_l
+    rounded = round(per_kg_l, 2)
+    return rounded
 
 def recommendation(table, budget_1):
     """Makes a recommendation within budget"""
-    
+
 # List to hold price details
 all_item_name = []
 all_item_weight = []
@@ -94,4 +95,7 @@ recommendation_0 = recommendation_frame.sort_values(by="Unit cost")
 print(recommendation_0)
 first_row = recommendation_0.iloc[[0]]
 print(first_row)
-recommendation_1 = recommendation(recommendation_0, budget)
+first_row_index = item_name.index(first_row)
+recommendation_name = recommendation_frame.at[first_row_index, "Name"]
+print(recommendation_name)
+

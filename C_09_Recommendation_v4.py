@@ -53,7 +53,7 @@ def unit_price_calculator(item_weight, items_unit, unit_price):
     rounded = round(per_kg_l, 2)
     return rounded
 
-def recommendation():
+def recommendation(budget, name, weight, cost, unit, unit_cost):
     """Makes a recommendation within budget"""
 
 # List to hold price details
@@ -96,14 +96,15 @@ recommendation_0 = recommendation_frame.sort_values(by="Unit cost")
 print(recommendation_0)
 first_row = recommendation_0.iloc[[0]]
 print(first_row)
-
-recommendation_string_1 = tabulate(first_row, headers='keys',
-                                 tablefmt='psql', showindex=False)
-recommendation_index = item_name.index(recommendation_string_1)
-
-recommendation_name = recommendation_frame.at[recommendation_index, 'Name']
-recommendation_weight = recommendation_frame.at[recommendation_index, 'Weight']
-
-
-print(recommendation_name)
-print(recommendation_weight)
+name = first_row.iloc[0, 0]
+weight = first_row.iloc[0, 1]
+cost = first_row.iloc[0, 2]
+unit = first_row.iloc[0, 3]
+unit_cost = first_row.iloc[0, 4]
+print(name)
+print(weight)
+print(cost)
+print(unit)
+print(unit_cost)
+recommendation_result = recommendation(budget, name, weight, cost, unit, unit_cost)
+print(recommendation_result)

@@ -53,9 +53,14 @@ def unit_price_calculator(item_weight, items_unit, unit_price):
     rounded = round(per_kg_l, 2)
     return rounded
 
-def recommendation():
+def recommendation(budget, name, weight, cost, unit, unit_cost):
     """Makes a recommendation within budget"""
-
+    if cost <= budget:
+        statement = f"{name} is under {budget}. At the cost of {cost} for a weight of {weight} a per $ amount of {unit_cost}"
+    else:
+        statement = (f"There is no items under you budget of {budget}, but the closest item to you budget is\n"
+                     f"{name} for ${cost} at the weight of {weight} a per $ amount of ${unit_cost}")
+    return statement
 # List to hold price details
 all_item_name = []
 all_item_weight = []
@@ -96,14 +101,15 @@ recommendation_0 = recommendation_frame.sort_values(by="Unit cost")
 print(recommendation_0)
 first_row = recommendation_0.iloc[[0]]
 print(first_row)
-
-recommendation_string_1 = tabulate(first_row, headers='keys',
-                                 tablefmt='psql', showindex=False)
-recommendation_index = item_name.index(recommendation_string_1)
-
-recommendation_name = recommendation_frame.at[recommendation_index, 'Name']
-recommendation_weight = recommendation_frame.at[recommendation_index, 'Weight']
-
-
-print(recommendation_name)
-print(recommendation_weight)
+name = first_row.iloc[0, 0]
+weight = first_row.iloc[0, 1]
+cost = first_row.iloc[0, 2]
+unit = first_row.iloc[0, 3]
+unit_cost = first_row.iloc[0, 4]
+print(name, "\n", weight, "\n", cost, "\n", unit, "\n", unit_cost)
+affordability = recommendation_frame[recommendation_frame["Cost"] <= budget]
+print(affordability)
+if affordability.empty:
+    print("list is empty")
+recommendation_result = recommendation(budget, name, weight, cost, unit, unit_cost)
+print(recommendation_result)

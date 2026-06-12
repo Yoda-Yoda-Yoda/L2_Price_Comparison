@@ -4,10 +4,6 @@ def num_check(question):
     """checks that the input the user entered is a number more than 0"""
     while True:
         response = input(question).lower()
-
-        if response == "xxx":
-            return response
-
         try:
             response = float(response)
 
@@ -33,7 +29,6 @@ def unit(question, valid_ans=("ml", "l", "g", "kg", "ea")):
     """Takes the user answer and checks if it's a valid answer from the list!"""
     while True:
         response = input(question).lower()
-
         for item in valid_ans:
             if response == item:
                 return item
@@ -48,19 +43,28 @@ def unit_price_calculator(item_weight, items_unit, unit_price):
     if items_unit == "ml" or items_unit == "g":
         print("you are in the ml / g loop")
         item_weight = item_weight / 1000
-
+    if items_unit == "ml":
+        unit_2 = "l"
+    elif items_unit == "g":
+        unit_2 = "kg"
     per_kg_l = unit_price / item_weight
     rounded = round(per_kg_l, 2)
-    return rounded
+    return rounded, unit_2
 
 def recommendation(budget, name, weight, cost, unit, unit_cost):
     """Makes a recommendation within budget"""
     if cost <= budget:
-        statement = f"{name} is under {budget}. At the cost of {cost} for a weight of {weight} a per $ amount of {unit_cost}"
-    else:
-        statement = (f"There is no items under you budget of {budget}, but the closest item to you budget is\n"
-                     f"{name} for ${cost} at the weight of {weight} a per $ amount of ${unit_cost}")
-    return statement
+        statement = (f"{name} is under the budget you set at ${budget}, this item has a weight {weight} per kg / L / ea\n"
+                     f"")
+
+
+
+    # if cost <= budget:
+    #     statement = f"{name} is under {budget}. At the cost of {cost} for a weight of {weight} a per $ amount of {unit_cost}"
+    # else:
+    #     statement = (f"There is no items under you budget of {budget}, but the closest item to you budget is\n"
+    #                  f"{name} for ${cost} at the weight of {weight} a per $ amount of ${unit_cost}")
+    # return statement
 # List to hold price details
 all_item_name = []
 all_item_weight = []
@@ -101,15 +105,21 @@ recommendation_0 = recommendation_frame.sort_values(by="Unit cost")
 print(recommendation_0)
 first_row = recommendation_0.iloc[[0]]
 print(first_row)
-name = first_row.iloc[0, 0]
-weight = first_row.iloc[0, 1]
-cost = first_row.iloc[0, 2]
-unit = first_row.iloc[0, 3]
-unit_cost = first_row.iloc[0, 4]
-print(name, "\n", weight, "\n", cost, "\n", unit, "\n", unit_cost)
+# name = first_row.iloc[0, 0]
+# weight = first_row.iloc[0, 1]
+# cost = first_row.iloc[0, 2]
+# unit = first_row.iloc[0, 3]
+# unit_cost = first_row.iloc[0, 4]
+# print(name, "\n", weight, "\n", cost, "\n", unit, "\n", unit_cost)
 affordability = recommendation_frame[recommendation_frame["Cost"] <= budget]
 print(affordability)
 if affordability.empty:
     print("list is empty")
-recommendation_result = recommendation(budget, name, weight, cost, unit, unit_cost)
+lowest_under_budget = affordability.iloc[[0]]
+lowest_name = lowest_under_budget.iloc[0, 0]
+lowest_weight = lowest_under_budget.iloc[0, 1]
+lowest_cost = lowest_under_budget.iloc[0, 2]
+lowest_unit = lowest_under_budget.iloc[0, 3]
+lowest_unit_cost = lowest_under_budget.iloc[0, 4]
+recommendation_result = recommendation(budget, lowest_name, lowest_weight, lowest_cost, lowest_unit, lowest_unit_cost)
 print(recommendation_result)

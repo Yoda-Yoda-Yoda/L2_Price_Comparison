@@ -14,7 +14,7 @@ def not_blank(question):
 
     while True:
         response = input(question)
-
+        # checks if the user entered something that is NOT blank
         if response != "":
             return response
 
@@ -25,9 +25,10 @@ def yes_no(question):
 
     while True:
         response = input(question).lower()
-
+        # checks if the user entered yes / y for yes
         if response == "yes" or response == "y":
             return "yes"
+        # checks if the user entered no / n for no
         elif response == "no" or response == "n":
             return "no"
         else:
@@ -47,7 +48,7 @@ def num_check(question):
         response = input(question).lower()
         try:
             response = float(response)
-
+            # checks if the user response is greater then 0
             if response > 0:
                 return response
             else:

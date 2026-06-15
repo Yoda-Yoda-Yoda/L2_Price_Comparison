@@ -5,10 +5,12 @@ def num_check(question):
     while True:
         response = input(question).lower()
         try:
+            # floats the number
             response = float(response)
-
+            # checks if its over 0
             if response > 0:
                 return response
+            # throws an error if the input doesn't match any of the above
             else:
                 print("Sorry! This needs to be a positive number! Please try again\n")
         except ValueError:
@@ -19,7 +21,7 @@ def not_blank(question):
 
     while True:
         response = input(question)
-
+        # looks at the user input and checks if it is not blank by using !=
         if response != "":
             return response
 
@@ -29,27 +31,28 @@ def unit(question, valid_ans=("ml", "l", "g", "kg", "ea")):
     """Takes the user answer and checks if it's a valid answer from the list!"""
     while True:
         response = input(question).lower()
+        # checks if the user inputted unit is in the list and passes it if it is!
         for item in valid_ans:
             if response == item:
                 return item
-
+        # defaults to ea if the user doesn't enter anything
         if response == "":
             return "ea"
+        # prints a error
         else:
             print("error")
 
 def unit_price_calculator(item_weight, items_unit, unit_price):
     """convert units and also works out the price per unit"""
+    # looks if the item unit is ml or g and then makes it into its l / kg form and if its already in kg / l it'll skip
     if items_unit == "ml" or items_unit == "g":
         print("you are in the ml / g loop")
         item_weight = item_weight / 1000
-    if items_unit == "ml":
-        unit_2 = "l"
-    elif items_unit == "g":
-        unit_2 = "kg"
+    # converts it into the price per kg or l or ea
     per_kg_l = unit_price / item_weight
+    # rounds the price per kg / l / ea into 2dp
     rounded = round(per_kg_l, 2)
-    return rounded, unit_2
+    return rounded
 
 def recommendation(budget, name, weight, cost, unit, unit_cost):
     """Makes a recommendation within budget"""
@@ -71,7 +74,7 @@ all_item_weight = []
 all_item_cost = []
 all_item_unit = []
 all_item_per_kg = []
-
+# the PANDAS dictionary that will be used in the further down in the program
 price_comparison_dict = {
     'Name': all_item_name,
     'Weight': all_item_weight,
@@ -79,6 +82,7 @@ price_comparison_dict = {
     'Unit': all_item_unit,
     'Unit cost': all_item_per_kg
 }
+
 budget = num_check("What is your budget? ")
 while True:
     item_name = not_blank("What is the item name? ")
@@ -89,11 +93,15 @@ while True:
     item_cost = num_check("What is the item cost? ")
     unit_test = unit_price_calculator(weight, unit_question, item_cost)
     all_item_name.append(item_name)
-
-
+    if unit_question == "g":
+        unit_final = "kg"
+    elif unit_question == "ml":
+        unit_final = "l"
+    else:
+        unit_final = unit_question
     all_item_weight.append(weight)
     all_item_cost.append(item_cost)
-    all_item_unit.append(unit_question)
+    all_item_unit.append(unit_final)
     all_item_per_kg.append(unit_test)
 
 recommendation_frame = pd.DataFrame(price_comparison_dict)

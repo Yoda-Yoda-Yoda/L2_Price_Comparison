@@ -113,22 +113,31 @@ while True:
 
 recommendation_frame = pd.DataFrame(price_comparison_dict)
 recommendation_string = tabulate(recommendation_frame, headers='keys',
-                                 tablefmt='psql', showindex=False)
+                                 tablefmt='psql', showindex=False, numalign="right")
 
 print(recommendation_string)
 recommendation_0 = recommendation_frame.sort_values(by="Unit cost")
 print(recommendation_0)
-first_row = recommendation_0.iloc[[0]]
-print(first_row)
 affordability = recommendation_frame[recommendation_frame["Cost"] <= budget]
 print(affordability)
 if affordability.empty:
     print("list is empty")
-lowest_under_budget = affordability.iloc[[0]]
+affordability_1 = affordability.sort_values(by="Cost")
+lowest_under_budget = affordability_1.iloc[[0]]
 lowest_name = lowest_under_budget.iloc[0, 0]
 lowest_weight = lowest_under_budget.iloc[0, 1]
 lowest_cost = lowest_under_budget.iloc[0, 2]
 lowest_unit = lowest_under_budget.iloc[0, 3]
 lowest_unit_cost = lowest_under_budget.iloc[0, 4]
+print("testing", lowest_under_budget, "\n", lowest_name, lowest_weight, lowest_cost, lowest_unit, lowest_unit_cost)
+
+cheapest_unit = recommendation_0.iloc[[0]]
+print(cheapest_unit)
+cheapest_name_unit = cheapest_unit.iloc[0, 0]
+cheapest_weight_unit = cheapest_unit.iloc[0, 1]
+cheapest_cost_unit = cheapest_unit.iloc[0, 2]
+cheapest_unit_unit = cheapest_unit.iloc[0, 3]
+cheapest_cost_cost_unit = cheapest_unit.iloc[0, 4]
+print("hello", cheapest_name_unit, cheapest_weight_unit, cheapest_cost_unit, cheapest_unit_unit, cheapest_cost_cost_unit )
 recommendation_result = recommendation(budget, lowest_name, lowest_weight, lowest_cost, lowest_unit, lowest_unit_cost)
 print(recommendation_result)

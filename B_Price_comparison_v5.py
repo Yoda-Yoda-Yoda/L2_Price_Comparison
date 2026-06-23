@@ -130,4 +130,25 @@ while True:
     all_item_cost.append(item_cost)
     all_item_unit.append(unit_question)
     all_item_per_kg.append(unit_test)
+
+name = input("What would you like the file name to be? ")
+if name == "":
+    name = "Price_comparison"
 print("Good Bye have a bad day🤣🤣🤣")
+
+
+to_write = []
+# print area
+print()
+for item in to_write:
+    print(item)
+
+# create file to hold data (add .txt extension)
+file_name = f"{name}_{year}_{month}_{day}"
+write_to = "{}.txt".format(file_name)
+
+text_file = open(write_to, "w+")
+
+for item in to_write:
+    text_file.write(item)
+    text_file.write("\n")

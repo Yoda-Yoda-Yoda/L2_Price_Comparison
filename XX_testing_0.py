@@ -57,43 +57,32 @@ def price_calculator(unit_price, item_weight):
     rounded = round(per_kg_l, 2)
     return rounded
 
-def recommendation_list(df, budget_1,type_1):
-    # under budget area
-    affordability = df[df["Cost"] <= budget_1]
-    affordability_1 = affordability.sort_values(by="Cost")
-    lowest_under_budget = affordability_1.iloc[[0]]
-    # cheapest unit area
-    recommendation_0 = (df.sort_values(by="Unit cost"))
-    cheapest_unit = recommendation_0.iloc[[0]]
-    if type_1 == "affordability":
-        list_1 = lowest_under_budget
-    elif type_1 == "cheapest":
-        list_1 = cheapest_unit
-
-    name = list_1.iloc[0, 0]
-    weight_1 = list_1.iloc[0, 0]
-    cost = list_1.iloc[0, 0]
-    unit_1 = list_1.iloc[0, 0]
-    unit_cost = list_1.iloc[0, 0]
-
-    # return area
-    if type_1 == "affordability":
-        output = f"{name}"
-
 def recommendation(df, budget_0):
     """Makes a recommendation within budget"""
     recommendation_0 = (df.sort_values(by="Unit cost"))
     print(recommendation_0)
-    affordability = df[df["Cost"] <= budget_0]
+    affordability = recommendation_frame[recommendation_frame["Cost"] <= budget_0]
     if not affordability.empty:
-        affordability_recommendation = recommendation_list(df, budget_0, "affordability")
-        print(affordability_recommendation)
+        affordability_1 = affordability.sort_values(by="Cost")
+        lowest_under_budget = affordability_1.iloc[[0]]
+        lowest_name = lowest_under_budget.iloc[0, 0]
+        lowest_weight = lowest_under_budget.iloc[0, 1]
+        lowest_cost = lowest_under_budget.iloc[0, 2]
+        lowest_unit = lowest_under_budget.iloc[0, 3]
+        lowest_unit_cost = lowest_under_budget.iloc[0, 4]
+        print("testing", lowest_under_budget, "\n", lowest_name, lowest_weight, lowest_cost, lowest_unit, lowest_unit_cost)
     else:
         print("List is empty")
 
-    cheapest_unit_cost = recommendation_list(df, budget_0, "cheapest")
-    cheapest_unit_cost
-    print()
+    cheapest_unit = recommendation_0.iloc[[0]]
+    print(cheapest_unit)
+    cheapest_name_unit = cheapest_unit.iloc[0, 0]
+    cheapest_weight_unit = cheapest_unit.iloc[0, 1]
+    cheapest_cost_unit = cheapest_unit.iloc[0, 2]
+    cheapest_unit_unit = cheapest_unit.iloc[0, 3]
+    cheapest_cost_cost_unit = cheapest_unit.iloc[0, 4]
+    print("hello", cheapest_name_unit, cheapest_weight_unit, cheapest_cost_unit, cheapest_unit_unit,
+          cheapest_cost_cost_unit)
 
 
 # List to hold price details

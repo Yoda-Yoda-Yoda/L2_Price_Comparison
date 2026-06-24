@@ -44,8 +44,10 @@ def unit(question, valid_ans=("ml", "l", "g", "kg", "ea")):
 
 def unit_converter(item_weight, item_unit):
     """convert grams or ml to kg and l"""
-    if item_unit in ["ml", "g"]:
+    if item_unit == "ml" or item_unit == "g":
         item_weight = item_weight / 1000
+    else:
+        item_weight = item_weight
     return item_weight
 
 def price_calculator(unit_price, item_weight):
@@ -55,41 +57,34 @@ def price_calculator(unit_price, item_weight):
     rounded = round(per_kg_l, 2)
     return rounded
 
-def recommendation(df, budget_1, type_1="cheapest"):
-    # under budget area
-    affordability = df[df["Cost"] <= budget_1]
-
-    # cheapest unit area
-    recommendation_0 = df.sort_values(by="Unit cost")
-    cheapest_unit = recommendation_0.iloc[[0]]
-
-    if type_1 == "affordability":
-        if affordability.empty:
-            return "There are no items under your budget."
-
+def recommendation(df, budget_0):
+    """Makes a recommendation within budget"""
+    recommendation_0 = (df.sort_values(by="Unit cost"))
+    print(recommendation_0)
+    affordability = df[df["Cost"] <= budget_0]
+    if not affordability.empty:
         affordability_1 = affordability.sort_values(by="Cost")
-        list_1 = affordability_1.iloc[[0]]
-
+        lowest_under_budget = affordability_1.iloc[[0]]
+        lowest_name = lowest_under_budget.iloc[0, 0]
+        lowest_weight = lowest_under_budget.iloc[0, 1]
+        lowest_cost = lowest_under_budget.iloc[0, 2]
+        lowest_unit = lowest_under_budget.iloc[0, 3]
+        lowest_unit_cost = lowest_under_budget.iloc[0, 4]
+        print("testing", lowest_under_budget, "\n", lowest_name, lowest_weight, lowest_cost, lowest_unit, lowest_unit_cost)
     else:
-        list_1 = cheapest_unit
+        print("List is empty")
 
-    name = list_1.iloc[0, 0]
-    weight_1 = list_1.iloc[0, 1]
-    cost = list_1.iloc[0, 2]
-    unit_1 = list_1.iloc[0, 3]
-    unit_cost = list_1.iloc[0, 4]
+    cheapest_unit = recommendation_0.iloc[[0]]
+    print(cheapest_unit)
+    cheapest_name_unit = cheapest_unit.iloc[0, 0]
+    cheapest_weight_unit = cheapest_unit.iloc[0, 1]
+    cheapest_cost_unit = cheapest_unit.iloc[0, 2]
+    cheapest_unit_unit = cheapest_unit.iloc[0, 3]
+    cheapest_cost_cost_unit = cheapest_unit.iloc[0, 4]
+    print("hello", cheapest_name_unit, cheapest_weight_unit, cheapest_cost_unit, cheapest_unit_unit,
+          cheapest_cost_cost_unit)
 
-    # return area
-    if type_1 == "affordability":
-        output = (f"{name} is the cheapest item under your budget at ${cost} "
-                f"for {weight_1} {unit_1} with a unit cost of ${unit_cost} per {unit_1}.")
-    elif type_1 == "cheapest":
-        output = (f"{name} has the lowest unit cost in your comparison at ${cost} "
-          f"for {weight_1} {unit_1} with a unit cost of ${unit_cost} per {unit_1}.")
-    else:
-        output = "Error"
 
-    return output
 # List to hold price details
 all_item_name = []
 all_item_weight = []
@@ -132,7 +127,5 @@ while True:
 recommendation_frame = pd.DataFrame(price_comparison_dict)
 recommendation_string = tabulate(recommendation_frame, headers='keys',
                                  tablefmt='psql', showindex=False, numalign="right")
-recommendation_affordability = recommendation(recommendation_frame, budget, "affordability")
-print(recommendation_affordability)
-recommendation_lowest_unit = recommendation(recommendation_frame, budget)
-print(recommendation_lowest_unit)
+recommendation_result = recommendation(recommendation_frame, budget)
+print(recommendation_result)

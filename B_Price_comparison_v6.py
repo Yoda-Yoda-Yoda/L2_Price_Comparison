@@ -4,10 +4,8 @@ from tabulate import tabulate
 
 # functions goes here
 def make_statement(statement, decoration):
-    """Emphasizes headings by adding decoration
-    at the start and end"""
-
-    print(f"{decoration * 3} {statement} {decoration * 3}")
+    """Emphasizes headings by adding decoration at the start and end"""
+    return f"{decoration * 3} {statement} {decoration * 3}"
 
 def not_blank(question):
     """Checks that a user input isn't blank"""
@@ -85,6 +83,10 @@ def price_calculator(unit_price, item_weight):
     return rounded
 
 def recommendation(df, budget_1, type_1="cheapest"):
+    # checks if empty
+    if df.empty:
+        return "There are no items in the list"
+
     # under budget area
     affordability = df[df["Cost"] <= budget_1]
 
@@ -101,7 +103,7 @@ def recommendation(df, budget_1, type_1="cheapest"):
 
     else:
         list_1 = cheapest_unit
-
+    # looking up the item in this cell with list_1 being a placeholder for the if statements above
     lookup_name = list_1.iloc[0, 0]
     lookup_weight = list_1.iloc[0, 1]
     lookup_cost = list_1.iloc[0, 2]
@@ -150,6 +152,7 @@ today = date.today()
 day = today.strftime("%d")
 month = today.strftime("%m")
 year = today.strftime("%Y")
+
 # gets the users budget
 budget = num_check("What is your budget? ")
 
@@ -167,40 +170,49 @@ while True:
     # calculate the price per unit
     price_cal = price_calculator(item_cost, unit_converter_1)
 
+    if unit_question == "g":
+        unit_final = "kg"
+    elif unit_question == "ml":
+        unit_final = "l"
+    else:
+        unit_final = unit_question
+
     # add item name, item weight, item cost and unit
     all_item_name.append(item_name)
-    all_item_weight.append(weight)
+    all_item_weight.append(unit_converter_1)
     all_item_cost.append(item_cost)
-    all_item_unit.append(unit_question)
+    all_item_unit.append(unit_final)
     all_item_per_kg.append(price_cal)
     item_count += 1
 
-if item_count > 1:
+if item_count >= 2:
     recommendation_frame = pd.DataFrame(price_comparison_dict)
 
     recommendation_string = tabulate(recommendation_frame, headers='keys',
                                      tablefmt='psql', showindex=False, numalign="right")
-    print(recommendation_string, "hello")
     recommendation_affordability = recommendation(recommendation_frame, budget, "affordability")
-    print(recommendation_affordability)
     recommendation_lowest_unit = recommendation(recommendation_frame, budget)
-    print(recommendation_lowest_unit)
 
+    heading = make_statement(f"Price Comparison {day}/{month}/{year}", "-")
+    table_heading = "\nHere are the items you are comparing\n"
+    table = recommendation_string
+    recommendation_heading = "\nHere is my recommendation's for you"
+    affordability_heading = "\nHere is the recommendation for items under you budget"
+    best_value_heading = "\nHere is the item with the best value for money (items can be over you budget for this)"
 
-    name = input("What would you like the file name to be? ")
-    if name == "":
-        name = "Price_comparison"
-    print("Good Bye have a bad day🤣🤣🤣")
+    to_write = [heading, table_heading, table, recommendation_heading,
+                affordability_heading, recommendation_affordability, best_value_heading, recommendation_lowest_unit, ]
 
-
-
-
-
-    to_write = []
     # print area
     print()
     for item in to_write:
         print(item)
+    print()
+    name = input("What would you like the file name to be? ")
+    if name == "":
+        name = "Price_comparison"
+    print("Good bye")
+
 
     # create file to hold data (add .txt extension)
     file_name = f"{name}_{year}_{month}_{day}"
@@ -212,5 +224,8 @@ if item_count > 1:
         text_file.write(item)
         text_file.write("\n")
 
+elif item_count == 1:
+    print("You need at least 2 items to compare.")
+
 else:
-    print("Sorry you didn't enter anything")
+    print("No items were entered.")

@@ -1,0 +1,21 @@
+--- Price Comparison {day}/{month}/{year} ---
+
+Here are the items you are comparing
+
++----------+----------+--------+--------+-------------+
+| Name     |   Weight |   Cost | Unit   |   Unit cost |
+|----------+----------+--------+--------+-------------|
+| apple    |    0.005 |      1 | kg     |         200 |
+| bananana |     1000 |    500 | ea     |         0.5 |
+| graps    |        1 |      3 | kg     |           3 |
+| coke     |     2.25 |      2 | l      |        0.89 |
++----------+----------+--------+--------+-------------+
+
+Here is my recommendation's for you
+
+
+Here is the recommendation for items under you budget
+apple is the cheapest item under your budget at $1.0 for 0.005 kg with a unit cost of $200.0 per kg.
+
+Here is the item with the best value for money (items can be over you budget for this)
+bananana has the lowest unit cost in your comparison at $500.0 for 1000.0 ea with a unit cost of $0.5 per ea.

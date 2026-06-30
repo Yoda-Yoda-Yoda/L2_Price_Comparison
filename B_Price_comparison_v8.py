@@ -17,21 +17,30 @@ def not_blank(question):
 
         print("Sorry! this can't be blank. Please try again\n")
 
-def string_check(question, valid_ans=None, item_type=None):
-    """Takes the user answer and checks if it's a valid answer from the list!"""
+def string_check(question, valid_ans=("yes","no"), string_type=None):
+    error = f"Please enter a valid option from the following list: {valid_ans}"
+
     while True:
+
+        # Get user response and make sure it's lowercase
         response = input(question).lower()
-        # checks if the item is in the list
-        for item_unit in valid_ans:
-            if response == item_unit:
-                return item_unit
-        # if the user inputs <blank> then the program will
-        # presume the user wants each only if item_type is unit
-        if item_type == "unit":
+
+        for item1 in valid_ans:
+            # check if the user response is a word in the list
+            if item1 == response:
+                return item1
+
+            # check if the user response it the same as
+            # the first letter of an item in the list
+            elif response == item1[0]:
+                return item1
+
+        if string_type == "unit":
             if response == "":
                 return "ea"
-        else:
-            print("error")
+        # print error if user doesn't enter something that's valid
+        print(error)
+        print()
 
 
 def instructions():
@@ -134,7 +143,7 @@ price_comparison_dict = {
     'Unit cost': all_item_per_kg
 }
 # instructions
-want_instructions = string_check("Do you want to see the instructions? ", ("yes", "y", "no", "n"))
+want_instructions = string_check("Do you want to see the instructions? ", ("yes","no"))
 print(want_instructions)
 if want_instructions == "yes" or want_instructions ==  "y":
     instructions()

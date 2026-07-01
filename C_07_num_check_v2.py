@@ -1,22 +1,20 @@
-def num_check(question):
+def num_check(question, min_number=0):
     """checks that the input the user entered is a number more than 0"""
     while True:
         response = input(question).lower()
-
-        if response == "xxx":
-            return response
-
         try:
             response = float(response)
-
-            if response > 0:
+            # checks if the user response is greater then 0
+            if response > min_number:
                 return response
-            elif response < 0:
-                error = "Please enter a positive number"
+            # if the response is under 0 the program will return an error
+            else:
+                error = f"Please enter a number that is above {min_number}"
                 print(error)
         except ValueError:
             print("Please enter numbers (Not Letters!)")
 
-
-question = num_check("Please enter a number! ")
-print(question)
+while True:
+    # question = num_check("Please enter a number! ")
+    question = num_check("Budget? ", 20)
+    print(question)

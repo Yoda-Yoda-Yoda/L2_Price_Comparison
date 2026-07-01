@@ -218,8 +218,6 @@ if item_count >= 2:
     name = input("What would you like the file name to be? ")
     if name == "":
         name = "Price_comparison"
-    print("Good bye")
-
 
     # create file to hold data (add .txt extension)
     file_name = f"{name}_{year}_{month}_{day}"

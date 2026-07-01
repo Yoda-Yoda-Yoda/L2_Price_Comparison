@@ -42,7 +42,6 @@ def string_check(question, valid_ans=("yes","no"), string_type=None):
         print(error)
         print()
 
-
 def instructions():
     """Prints the instructions"""
     make_statement("Heading", "💰")
@@ -62,7 +61,7 @@ def num_check(question, min_number=0):
                 return response
             # if the response is under 0 the program will return an error
             else:
-                error = f"Please enter a positive number or check that the number is above {min_number}"
+                error = f"Please enter a number that is above {min_number}"
                 print(error)
         except ValueError:
             print("Please enter numbers (Not Letters!)")
@@ -118,7 +117,7 @@ def recommendation(df, budget_1, type_1="cheapest"):
     # return area for cheapest item
     elif type_1 == "cheapest":
         output = (f"{lookup_name} has the lowest unit cost in your comparison at ${lookup_cost} "
-          f"for {lookup_weight} {lookup_unit} with a unit cost of ${lookup_unit_cost} per {lookup_unit}.")
+                f"for {lookup_weight} {lookup_unit} with a unit cost of ${lookup_unit_cost} per {lookup_unit}.")
     else:
         output = "Sorry there was no items in any tables for comparison"
 
@@ -143,9 +142,9 @@ price_comparison_dict = {
     'Unit cost': all_item_per_kg
 }
 # instructions
-want_instructions = string_check("Do you want to see the instructions? ", ("yes","no"))
+want_instructions = string_check("Do you want to see the instructions? ")
 print(want_instructions)
-if want_instructions == "yes" or want_instructions ==  "y":
+if want_instructions == "yes":
     instructions()
 
 # for file names
@@ -158,7 +157,7 @@ month = today.strftime("%m")
 year = today.strftime("%Y")
 
 # gets the users budget
-budget = num_check("What is your budget? ", 20)
+budget = num_check("What is your budget (Minimum budget of more than 20)? ", 20)
 
 while True:
     # gets the details of the items

@@ -24,8 +24,8 @@ def string_checker(question, valid_ans=None, string_type=None):
         print()
 
 while True:
-    yes_no = string_checker("do you want instructions?", ("yes", "no"))
-    print(yes_no)
+    # yes_no = string_checker("do you want instructions?", ("yes", "no"))
+    # print(yes_no)
 
     unit = string_checker("what unit? ", ("ml", "l", "g", "kg", "ea"), "unit")
     print(unit)

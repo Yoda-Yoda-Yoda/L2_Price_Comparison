@@ -7,6 +7,7 @@ def make_statement(statement, decoration):
     """Emphasizes headings by adding decoration at the start and end"""
     return f"{decoration * 3} {statement} {decoration * 3}"
 
+
 def not_blank(question):
     """Checks that a user input isn't blank"""
     while True:
@@ -40,11 +41,10 @@ def string_check(question, valid_ans=("yes","no"), string_type=None):
                 return "ea"
         # print error if user doesn't enter something that's valid
         print(error)
-        print()
 
 def instructions():
     """Prints the instructions"""
-    make_statement("Heading", "💰")
+    print(make_statement("Heading", "💰"))
 
     print('''
 Instructions 
@@ -143,7 +143,6 @@ price_comparison_dict = {
 }
 # instructions
 want_instructions = string_check("Do you want to see the instructions? ")
-print(want_instructions)
 if want_instructions == "yes":
     instructions()
 
@@ -157,7 +156,7 @@ month = today.strftime("%m")
 year = today.strftime("%Y")
 
 # gets the users budget
-budget = num_check("What is your budget (Minimum budget of more than 20)? ", 20)
+budget = num_check("What is your budget (Minimum budget of more than 10)? ", 10)
 
 while True:
     # gets the details of the items
@@ -200,7 +199,7 @@ if item_count >= 2:
     table_heading = "\nHere are the items you are comparing\n"
     table = recommendation_string
     item_heading = f"\nYou are comparing {item_count} items."
-    recommendation_heading = "\nHere is my recommendation's for you"
+    recommendation_heading = make_statement("Here is my recommendation's for you", "-")
     affordability_heading = "\nHere is the recommendation for items under you budget"
     best_value_heading = "\nHere is the item with the best value for money (items can be over you budget for this)"
 
@@ -215,9 +214,6 @@ if item_count >= 2:
     name = input("What would you like the file name to be? ")
     if name == "":
         name = "Price_comparison"
-    print("Good bye")
-
-
     # create file to hold data (add .txt extension)
     file_name = f"{name}_{year}_{month}_{day}"
     write_to = "{}.txt".format(file_name)
